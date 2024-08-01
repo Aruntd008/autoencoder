@@ -6,7 +6,7 @@ class Decoder(nn.Module):
     def __init__(self, args):
         super(Decoder, self).__init__()
         channels = [512, 256, 256, 128, 128]
-        attn_resolutions = [16]
+        attn_resolutions = []
         num_res_blocks = 3
         resolution = 16
 

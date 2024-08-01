@@ -6,7 +6,7 @@ class Encoder(nn.Module):
     def __init__(self, args):
         super(Encoder, self).__init__()
         channels = [128, 128, 128, 256, 256, 512]
-        attn_resolutions = [16]
+        attn_resolutions = []
         num_res_blocks = 2
         resolution = 256
         layers = [nn.Conv2d(args.image_channels, channels[0], 3, 1, 1)]

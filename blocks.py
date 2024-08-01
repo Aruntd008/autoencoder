@@ -2,15 +2,16 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+        
 class ResBlock(nn.Module):
-    def __init__(self, in_channels, out_channels, stride=1, downscale=None, activation= nn.SiLU()):
+    def __init__(self, in_channels, out_channels, stride=1, downscale=None, activation=None):
         super(ResBlock, self).__init__()
         self.in_channels = in_channels
         self.out_channels = out_channels
         self.downscale = downscale
-        self.activation = activation
+        self.activation = activation if activation is not None else nn.SiLU()
         
-        self.blocks=nn.Sequential(
+        self.blocks = nn.Sequential(
             nn.GroupNorm(num_groups=32, num_channels=in_channels, eps=1e-6, affine=True),
             self.activation,
             nn.Conv2d(in_channels, out_channels, 3, stride=stride, padding=1),
@@ -43,7 +44,7 @@ class UpsampleBlock(nn.Module):
         self.conv = nn.Conv2d(in_channels, out_channels, 3, padding=1)
 
     def forward(self, x):
-        x = F.interpolate(x, self.scale, mode="bilinear")
+        x = F.interpolate(x, scale_factor=self.scale, mode="bilinear")
         return self.conv(x)
     
 class NonLocalBlock(nn.Module):
