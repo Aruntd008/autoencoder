@@ -1,9 +1,10 @@
 draft.ipynb
 a.ipynb
-svqvae.ipynb
 blocks.py
 codebook.py
 decoder.py
 encoder.py
 vqema.py
 vqvae.ipynb
+checkpoints
+checkpoints_old
